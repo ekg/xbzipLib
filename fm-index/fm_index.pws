@@ -1,0 +1,49 @@
+
+[executer]
+RunInTerminal=true
+
+[Project State]
+clean before build=false
+
+[filenumbers]
+0=380
+1=3
+2=102
+3=102
+4=65
+5=123
+6=598
+7=327
+
+[filemarkers]
+0=
+1=
+2=
+3=
+4=
+5=
+6=
+7=
+
+[File View]
+filter.file.unmatch=*.so *.o *.a *.la
+filter.file.ignore.hidden=0
+filter.dir.ignore.hidden=0
+
+[filelist]
+0=/home/rossano/tirocinio/fm-index/fm_occurences.c
+1=/home/rossano/tirocinio/fm-index/fm_common.h
+2=/home/rossano/tirocinio/fm-index/interface.h
+3=/home/rossano/tirocinio/fm-index/2index1fileExample.c
+4=/home/rossano/tirocinio/fm-index/fm_build.c
+5=/home/rossano/tirocinio/fm-index/fm_build_main.c
+6=/home/rossano/tirocinio/fm-index/fm_extract.c
+7=/home/rossano/tirocinio/fm-index/fm_read.c
+
+[Project Tree]
+0=0
+1=0:0
+2=0:1
+
+[File Tree]
+0=0
