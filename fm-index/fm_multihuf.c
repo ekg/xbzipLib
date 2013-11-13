@@ -638,8 +638,6 @@ int minLen,
 				    int maxLen, int alphaSize);
 	
 
-__inline__ int decode_unary (void);
-	
 int t, i, j, minLen, maxLen, len, nGroups;
 	
 

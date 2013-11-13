@@ -208,8 +208,8 @@ int main(int argc, char *argv[])
   ds_ssort(x, p, n);
   end_real = times(&r);
   end  = (r.tms_utime+r.tms_stime);     /* user + system */
-  tot_time =  ((double) (end-start))/CLK_TCK;
-  tot_time_real =  ((double) (end_real-start_real))/CLK_TCK;
+  tot_time =  ((double) (end-start))/CLOCKS_PER_SEC;
+  tot_time_real =  ((double) (end_real-start_real))/CLOCKS_PER_SEC;
   printf("Elapsed time: %.2f seconds (user+sys). Total real time: %.2f.\n", 
 	 tot_time, tot_time_real);
 

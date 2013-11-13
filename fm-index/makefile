@@ -4,7 +4,7 @@ CC=gcc
 
 #CFLAGS = -g -pg -fprofile-arcs -O9 -W -Wall -Winline -DDEBUG=0
 #these are for testing
-CFLAGS = -g -W -Wall -Winline -O9
+CFLAGS = -g -W -Wall -Winline -O9 -lm
 
 #these are for maximum speed
 #CFLAGS=-g -O9 -fomit-frame-pointer -W -Wall -Winline -DDEBUG=0 -DNDEBUG=1 

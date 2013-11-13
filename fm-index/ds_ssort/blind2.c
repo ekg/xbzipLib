@@ -172,7 +172,6 @@ __inline__ node *new_node__blind_ssort(void)
    ***************************************************** */
  void insert_suffix(node *h, Int32 suf, int n, UChar mmchar)
 {
-   __inline__ node *new_node__blind_ssort(void);
   Int32 t;
   UChar c, *s;
   node *p, **pp;
@@ -393,7 +392,6 @@ Int32 get_lcp_unrolled(UChar *b1, UChar *b2, Int32 cmp_limit)
    ************************************************************************ */
  Int32 compare_suffixes(Int32 suf1, Int32 suf2, Int32 depth)
 {
-  __inline__ Int32 get_lcp_unrolled(UChar *, UChar *, Int32);  
   int limit;
   UChar *s1, *s2;
 

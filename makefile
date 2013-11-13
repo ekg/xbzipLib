@@ -3,7 +3,7 @@ SHELL=/bin/sh
 CC=gcc
 
 #these are for maximum speed
-CFLAGS=-g -O3 -fomit-frame-pointer -W -Wall -Winline -DDEBUG=0 -DNDEBUG=1 
+CFLAGS=-g -O3 -fomit-frame-pointer -W -Wall -Winline -DDEBUG=0 -DNDEBUG=1 -lm
 
 #these are for testing
 #CFLAGS = -pg -W -Wall -Winline -O2
@@ -17,6 +17,7 @@ all: xbzip
 fm_index.a:
 	make -C ./fm-index/ 
 	cp -f ./fm-index/fm_index.a .; cp -f ./fm-index/interface.h .
+	cp -f ./fm-index/ds_ssort/ds_ssort.a .; cp -f ./fm-index/ds_ssort/ds_ssort.h .
 
 
 # This is the library of Paolo Ferragina and Rossano Venturini for FMindex 2.0
@@ -31,7 +32,7 @@ libz.a:
 # This is the library of Paolo Ferragina for BWT-compression with one large block
 bigbzip.a: 
 	make -C ./bigbzip/; cp -f ./bigbzip/bigbzip.a .; cp -f ./bigbzip/bigbzip.h .
-	cp -f ./bigbzip/ds_ssort/ds_ssort.a .; cp -f ./bigbzip/ds_ssort/ds_ssort.h .
+	#cp -f ./bigbzip/ds_ssort/ds_ssort.a .; cp -f ./bigbzip/ds_ssort/ds_ssort.h .
 
 # archive containing the xbzip algorithm
 xbzip.a: bigbzip.a libz.a fm_index.a xbzip_fnct_compr.o xbzip_fnct_index.o xbzip_aux.o xbzip_parser.o xbzip_hash.o data_compressor.o
