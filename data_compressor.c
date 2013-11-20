@@ -29,9 +29,9 @@ void data_compress(unsigned char *s, int slen, unsigned char **t, int *tlen)
 	}
   fwrite(s, sizeof(unsigned char), slen, Outfile);
   fclose(Outfile);
-  system("./ppmd.exe e -m100 -o10 FileXbzipTmp.dat");
+  system("./ppmdi FileXbzipTmp.dat");
 
-  Infile=fopen("FileXbzipTmp.pmd", "rb"); 
+  Infile=fopen("FileXbzipTmp.dat.xpm", "rb"); 
   if (!Infile){
     printf("Error in opening Infile! (DataCompress)");
 	exit(-1);
@@ -62,7 +62,7 @@ void data_decompress(unsigned char *s, int slen, unsigned char **t, int *tlen)
 
 
   system("rm -f FileXbzipTmp.*");
-  Outfile = fopen( "FileXbzipTmp.pmd", "wb"); 
+  Outfile = fopen( "FileXbzipTmp.dat.xpm", "wb"); 
   if (!Outfile){
     printf("Error in opening Outfile! (DataDeCompress)");
 	exit(-1);
@@ -70,7 +70,7 @@ void data_decompress(unsigned char *s, int slen, unsigned char **t, int *tlen)
   fwrite(s, sizeof(unsigned char), slen, Outfile);
   fclose(Outfile);
 
-  system("./ppmd.exe d FileXbzipTmp.pmd");
+  system("./unppmdi FileXbzipTmp.dat.xpm");
 
   Infile=fopen("FileXbzipTmp.dat", "rb"); 
   if (!Infile){

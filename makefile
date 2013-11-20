@@ -27,7 +27,7 @@ libz.a:
 	# Taken from XMLPPM by James Cheney, adapted to just PPMDI by Joaquin Adiego
 	make -C ./ppmdi-source/ 
 	chmod 755 ./ppmdi-source/ppmdi; chmod 755 ./ppmdi-source/unppmdi
-	cp -f ./ppmdi-source/ppmdi ; cp -f ./ppmdi-source/unppmdi .
+	cp -f ./ppmdi-source/ppmdi . ; cp -f ./ppmdi-source/unppmdi .
 
 # This is the library of Paolo Ferragina for BWT-compression with one large block
 bigbzip.a: 
