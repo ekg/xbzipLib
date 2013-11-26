@@ -277,14 +277,34 @@ Tree_node *xml2tree(UChar *text, int text_len, int *treesize)
 	create_node(root,TAGATTR,t,strlen(t),rp, ud->counter);
 	ud->stack_nodes[++ud->top_stack] = root;
 
-	// Issue the parsing of the whole text
-	if (! XML_Parse(p, text, text_len, 1)) {
-	  fprintf(stderr, "Parse error at line %d:\n%s\n",
-      XML_GetCurrentLineNumber(p),
-      XML_ErrorString(XML_GetErrorCode(p)));
-	  exit(-1);
-	}
+	// parse the text in chunks < max(int), to keep XML_Parse happy
+    /*
+    unsigned long i = 0;
+    int bufsize = 10000000; // 10M chunks
+    bool done;
+    do {
 
+        done = i + bufsize > text_size; // checks if we've got the last bufferfull
+
+        if (! XML_Parse(p, text[i], bufsize, done)) {
+            fprintf(stderr, "Parse error at line %d:\n%s\n",
+                    XML_GetCurrentLineNumber(p),
+                    XML_ErrorString(XML_GetErrorCode(p)));
+            exit(-1);
+        }
+
+        i += bufsize;
+        
+	} while (!done);
+    */
+
+    if (! XML_Parse(p, text, text_len, 1)) {
+        fprintf(stderr, "Parse error at line %d:\n%s\n",
+                XML_GetCurrentLineNumber(p),
+                XML_ErrorString(XML_GetErrorCode(p)));
+        exit(-1);
+    }
+    
 	// keep track of the number of tree nodes and leaves
 	*treesize = ud->counter;
 	XML_ParserFree(p);

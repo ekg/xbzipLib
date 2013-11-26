@@ -397,7 +397,8 @@ int main(int argc, char **argv) {
 
 		// Traversing the subtree and print it
 		__START_TIMER__;
-		Subtree2Text(&index, row2text, &printedRow, &snippet, &snippetLength);
+        //get_text_content(&index, row2text, &snippetLength, &snippet);
+        Subtree2Text(&index, row2text, &printedRow, &snippet, &snippetLength);
 		__END_TIMER__;
 		printf("...it took %.4f seconds\n\n", tot_partial_timer);
 		printf("------------- Subtree of row %d (asked %d)\n\n",printedRow,row2text);

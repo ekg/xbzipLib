@@ -433,6 +433,7 @@ void xbwtstr2index(xbwt_string_type *xbwtstr, xbwt_index_type *index)
 	index->PcOffsetBlocks = (int *) malloc(sizeof(int) * (index->PcNumBlocks) );
 	index->PcBlockItems = (int *) malloc(sizeof(int) * (index->PcNumBlocks) );
 
+
 	// Oversized, then we resize it
 	index->PcdataIndexLen = max(xbwtstr->TextLength, 10000); 
 	index->PcdataIndex = (UChar *) malloc(sizeof(UChar) * (index->PcdataIndexLen) );
@@ -449,7 +450,6 @@ void xbwtstr2index(xbwt_string_type *xbwtstr, xbwt_index_type *index)
 		printf("#partitioned = %d, #items = %d\n",aa,xbwtstr->PcdataItems);
 		fatal_error("Error in the partitioning! (xbwt_partition)\n");
 		}
-
 	for(startb=0, j=0, index_offset=0; startb < xbwtstr->pcdataLen; j++){
 		index->PcOffsetBlocks[j] = index_offset; 
 		index->PcBlockItems[j] = PartitionArray[j];  
@@ -477,7 +477,7 @@ void xbwtstr2index(xbwt_string_type *xbwtstr, xbwt_index_type *index)
 
 		startb = k;
 	}
-	
+	    printf("hereMM\n");
 	// Set the correct byte length of the compressed blocks
 	index->PcdataIndexLen = index_offset;
 
@@ -499,6 +499,8 @@ void xbwtstr2index(xbwt_string_type *xbwtstr, xbwt_index_type *index)
 	// Compute the code of = which does not occur as first item in PI-string
 	hn=HHashtable_search("=", 1, &ht);
 	textcode = hn->code;
+
+    printf("yo\n");
 
 	// We exploit GlobalPrefixCounts[]
 	// First PI-string is empty, first TAG-ATTR encoded with 0
@@ -1106,7 +1108,6 @@ void xbzip_search(xbwt_index_type *index, UChar **path, int pathlen,
 
 //	UChar *snippet_text; unsigned long snippet_len, *occArray; // for the Location
 
-
 	i=0;
 
 	symb_code = get_symbol_code(index,path[i]);
@@ -1168,7 +1169,7 @@ void xbzip_search(xbwt_index_type *index, UChar **path, int pathlen,
 	*pathocc = rank1_last(index, *lastRow) - rank1_last(index, *firstRow - 1);
 
 	// Here, we manage the path queries
-	if (path[pathlen-1][0] != '=') {
+	if (!visualize && path[pathlen-1][0] != '=') {
 		*occ = *pathocc;
 		printf("The Tag-Attr path occurs %d times.\n", *pathocc );
 		printf("The overall Query-Path occurs %d times.\n",*occ);
@@ -1685,17 +1686,30 @@ void compress_block(uchar *source, int sourceLen, uchar **dest, int *destLen)
 {
 	int err;		
 
-	// bigbzip_compress(source, sourceLen, dest, destLen);
+	bigbzip_compress(source, sourceLen, dest, destLen);
 
 	// Using ZLib
+    /*
 	*destLen = (int) (1.01 * sourceLen + 100000) * sizeof(int);
 	*dest = (uchar *)calloc(*destLen, 1);
 	memcpy(*dest,&sourceLen,4);  // Source Length for uncomression
+
 	err = compress2(*dest + 4, (uLong *)destLen, source, sourceLen, 9);
 	*destLen += 4; // preamble containing the source length
 
+    if (err == Z_MEM_ERROR)
+		fatal_error("Memory error when compressing a data block! (COMPRESS_BLOCK)\n");
+
+    if (err == Z_BUF_ERROR)
+		fatal_error("Buffer error when compressing a data block! (COMPRESS_BLOCK)\n");
+
+    if (err == Z_STREAM_ERROR)
+		fatal_error("Stream error when compressing a data block! (COMPRESS_BLOCK)\n");
+
 	if (err != Z_OK) 
 		fatal_error("Error in compressing a data block! (COMPRESS_BLOCK)\n");
+    */
+
 }
 
 void decompress_block(uchar *source, int sourceLen, uchar **dest, int *destLen)
@@ -1703,8 +1717,9 @@ void decompress_block(uchar *source, int sourceLen, uchar **dest, int *destLen)
 
 	int err;		
 
-	// bigbzip_decompress(source, sourceLen, dest, destLen);
+	bigbzip_decompress(source, sourceLen, dest, destLen);
 
+    /*
 	// Using ZLib
 	if(sourceLen < 4) 
 		fatal_error("Passed tiny block to decompress ! (DECOMPRESS_BLOCK)\n");
@@ -1715,6 +1730,6 @@ void decompress_block(uchar *source, int sourceLen, uchar **dest, int *destLen)
 
 	if (err != Z_OK) 
 		fatal_error("Error in uncompressing a data block! (DECOMPRESS_BLOCK)\n");
-
+    */
 
 }
